@@ -38,3 +38,9 @@ from books
 group by publishing_year, genre
 having avg(book_average_rating) < 4.2 and count(book_id) > 5
 order by publishing_year, genre, books_count
+
+Напишите запрос, который позволит вывести фамилию водителя, не указавшего телефон.
+
+select last_name
+from driver
+where phone is null
