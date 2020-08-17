@@ -44,3 +44,11 @@ order by publishing_year, genre, books_count
 select last_name
 from driver
 where phone is null
+
+Напишите запрос, который выведет идентификатор и вес третьей по весу доставки (сортировка по убыванию).
+
+select ship_id, weight
+from shipment
+order by weight desc
+offset 2
+limit 1
