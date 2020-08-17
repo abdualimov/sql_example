@@ -1,0 +1,4 @@
+select cust_type, avg(annual_revenue)
+from customer
+group by cust_type
+having avg(annual_revenue) > 25000000
