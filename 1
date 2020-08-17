@@ -1,4 +1,40 @@
+Напишите запрос, который выводит среднюю выручку по каждой категории клиентов (cust_type).
+
 select cust_type, avg(annual_revenue)
 from customer
 group by cust_type
 having avg(annual_revenue) > 25000000
+
+Определите среднее количество оценок, поставленных книгам авторов Stephen King или Amy Tan для книг, опубликованных с 1950 года до 1995 года (обязательно используйте BETWEEN!)
+
+select avg(book_ratings_count)
+from books
+where (author = 'Stephen King' or author = 'Amy Tan') and publishing_year between 1950 and 1995
+group by author
+
+Напишите запрос, который получает средний рейтинг книг автора по различным жанрам. Выведите топ таких авторов с 3-го до 8-го места включительно. Должны получиться столбцы author, genre, average_rating, отсортированные по убыванию по среднему рейтингу и по возрастанию по автору и жанру.
+
+select author, genre, avg(book_average_rating) as average_rating
+from books
+group by author, genre
+order by average_rating desc, author, genre
+offset 2
+limit 6
+
+Напишите запрос, который для каждого автора книг, опубликованных после 1930 года, подсчитывает количество издательств, в которых публиковались книги, сумму количества всех оценок таких книг, их средний рейтинг, минимальный и максимальный год публикации.
+Выведите только таких авторов, которые публиковались хотя бы в двух издательствах и опубликовали хотя бы одну книгу после 1950 года.
+
+select author, count(distinct publisher), sum(book_ratings_count), avg(book_average_rating), min(publishing_year), max(publishing_year)
+from books
+where publishing_year > 1930
+group by author
+having count(distinct publisher) >=2 and max(publishing_year) > 1950
+
+Напишите запрос, который выводит года публикации книг, жанр книг и их количество для каждой комбинации года публикации и жанра из таблицы, если средний рейтинг книг в этой группе меньше 4.2, а количество опубликованных книг больше 5.
+Необходимые столбцы: publishing_year, genre, books_count с сортировкой по всем столбцам(в таком же порядке, как они перечислены в запросе) в порядке возрастания.
+
+select publishing_year, genre, count(book_id) as books_count
+from books
+group by publishing_year, genre
+having avg(book_average_rating) < 4.2 and count(book_id) > 5
+order by publishing_year, genre, books_count
