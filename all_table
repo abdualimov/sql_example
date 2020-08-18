@@ -57,6 +57,16 @@ group by c.data_type
 order by count(c.data_type) desc
 limit 1
 
+Напишите запрос, который выведет количество таблиц с первичными ключами в схеме public.
 
+select 
+	
+	count(c.table_name)
+	
+from 
+	information_schema.table_constraints c
+where 
+	c.table_schema = 'shipping'
+	and c.constraint_type in ('PRIMARY KEY')
   
   
