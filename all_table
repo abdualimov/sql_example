@@ -1,0 +1,62 @@
+Чтобы указать схему, к которой отправить запрос нужно указать ее имя в разделе from перед именем таблицы. 
+
+select 
+	c.city_id, 
+	c.city_name, 
+	c.state, 
+	c.population, 
+	c.area 
+from 
+	shipping.city c
+where
+	c.city_id = 104
+ 
+С помощью такого запроса мы можем увидеть список всех таблиц, относящихся к нашему датасету.
+
+select 
+	t.table_schema,
+	t.table_name
+from 
+	information_schema.tables t
+where 
+	t.table_schema = 'shipping'
+  
+Напишите запрос, который посчитает, сколько таблиц в схеме public.
+
+select 
+
+	count(t.table_name)
+from 
+	information_schema.tables t
+where 
+	t.table_schema = 'public'
+  
+С помощью такого запроса мы можем увидеть список всех полей и их типов в таблице city в схеме shipping.
+
+select 
+	c.table_schema,
+	c.table_name,
+	c.column_name,
+	c.data_type,
+	c.ordinal_position
+from 
+	information_schema.columns c
+where 
+	c.table_schema = 'shipping'
+	and c.table_name = 'city'
+
+Напишите запрос, который выведет самый частый тип в таблицах схемы public.
+
+select 
+c.data_type
+from 
+	information_schema.columns c
+where 
+	c.table_schema = 'public'
+group by c.data_type
+order by count(c.data_type) desc
+limit 1
+
+
+  
+  
