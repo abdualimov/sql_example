@@ -52,3 +52,13 @@ from shipment
 order by weight desc
 offset 2
 limit 1
+
+Напишите запрос, который выведет количество таблиц в схеме shipping, в которых есть столбцы типа numeric
+
+select 
+	count(c.data_type)
+from 
+	information_schema.columns c
+where 
+	c.table_schema = 'shipping' and
+	c.data_type = 'numeric'
